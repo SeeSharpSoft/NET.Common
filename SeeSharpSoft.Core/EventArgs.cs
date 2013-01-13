@@ -15,4 +15,17 @@ namespace SeeSharpSoft
             Value = value;
         }
     }
+
+    public class ChangeEventArgs<T> : EventArgs
+    {
+        public T OldValue { set; get; }
+        public T NewValue { set; get; }
+
+        public ChangeEventArgs(T oldValue, T newValue)
+            : base()
+        {
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+    }
 }

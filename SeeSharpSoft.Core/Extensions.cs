@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Data;
 using System.ComponentModel;
+using System.Data;
 
 namespace SeeSharpSoft
 {
@@ -205,7 +205,7 @@ namespace SeeSharpSoft
             return result;
         }
 
-#endregion
+        #endregion
 
         public static IEnumerable<int> UpTo(this int start, int end)
         {
