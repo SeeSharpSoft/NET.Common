@@ -11,26 +11,60 @@ namespace SeeSharpSoft
 {
     public static class SeeSharpSoftCoreExtensions
     {
+        /// <summary>
+        /// Checks whether value is null or DBNull.
+        /// </summary>
+        /// <typeparam name="T">Type of value</typeparam>
+        /// <param name="value">Value</param>
+        /// <returns>True if value is null or DBNull, false else.</returns>
         public static bool IsNull<T>(this T value)
         {
             return value == null || value is DBNull;
         }
 
+        /// <summary>
+        /// Checks whether value is null or DBNull or its toString representation is an emtpy string.
+        /// </summary>
+        /// <typeparam name="T">Type of value</typeparam>
+        /// <param name="value">Value</param>
+        /// <returns>True if value is null or DBNull or its toString representation is an emtpy string, false else.</returns>
         public static bool IsNullOrEmpty<T>(this T value)
         {
             return value.IsNull() || String.IsNullOrEmpty(value.ToString());
         }
 
+        /// <summary>
+        /// Returns value or the first non-null element of the valueList.
+        /// </summary>
+        /// <typeparam name="T">Type of value</typeparam>
+        /// <param name="value">Value</param>
+        /// <param name="valueList">List of alternatives.</param>
+        /// <returns>Value or the first non-null element of the valueList.</returns>
         public static T Coalesce<T>(this T value, params T[] valueList)
         {
             return Coalesce(value, IsNull, valueList);
         }
 
+        /// <summary>
+        /// Returns value or the first non-null or -empty element of the valueList.
+        /// </summary>
+        /// <typeparam name="T">Type of value</typeparam>
+        /// <param name="value">Value</param>
+        /// <param name="valueList">List of alternatives.</param>
+        /// <returns>Value or the first non-null or -empty element of the valueList.</returns>
         public static T CoalesceEmpty<T>(this T value, params T[] valueList)
         {
             return Coalesce(value, IsNullOrEmpty, valueList);
         }
 
+        /// <summary>
+        /// Returns value or the first element of the valueList which shouldn't be skipped.
+        /// </summary>
+        /// <typeparam name="T">Type of value</typeparam>
+        /// <param name="value">Value</param>
+        /// <param name="skip">Function to determine whether to skip an element.</param>
+        /// <param name="valueList">List of alternatives.</param>
+        /// <returns>Value or the first element of the valueList which shouldn't be skipped.</returns>
         public static T Coalesce<T>(this T value, Func<T, bool> skip, params T[] valueList)
         {
             if (!skip.Invoke(value)) return value;
@@ -206,6 +240,7 @@ namespace SeeSharpSoft
         }
 
         #endregion
+
 
         public static IEnumerable<int> UpTo(this int start, int end)
         {
